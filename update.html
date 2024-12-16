@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario de Inserción de Persona</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f9;
+      margin: 0;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+    label {
+      display: block;
+      margin: 10px 0 5px;
+      font-weight: bold;
+    }
+    input[type="text"], input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0 20px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      cursor: pointer;
+      font-size: 16px;
+      border-radius: 4px;
+    }
+    button:hover {
+      background-color: #45a049;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Formulario de Inserción de Persona</h2>
+    <form id="formPersona" action="http://localhost:3000/insertar" method="POST">
+      <!-- id_persona (Auto-generado, no se incluye en el formulario) -->
+      
+      <label for="nombre">Nombre</label>
+      <input type="text" id="nombre" name="nombre" required>
+
+      <label for="dni">DNI</label>
+      <input type="text" id="dni" name="dni" required>
+
+      <label for="apellidoUno">Apellido Primero</label>
+      <input type="text" id="apellidoUno" name="apellidoUno" required>
+
+      <label for="apellidoDos">Apellido Segundo</label>
+      <input type="text" id="apellidoDos" name="apellidoDos">
+
+      <button type="submit">Insertar Persona</button>
+    </form>
+  </div>
+
+</body>
+</html>

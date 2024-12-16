@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Datos desde SQLite</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 8px;
+      text-align: left;
+      border: 1px solid #ddd;
+    }
+  </style>
+</head>
+
+<body>
+  <button id="btnPersona">Persona</button>
+  <button id="btnEstudiante">Estudiante</button>
+  <button id="btnProfesor">Profesor</button>
+  <button id="btnEvalua">Evalua</button>
+  <button id="btnClase">Clase</button>
+  <button id="btnAsiste">Asiste</button>
+
+  <div id="persona">
+    <h1>Datos de la tabla Persona</h1>
+    <table id="tablaPersona">
+      <thead>
+        <tr>
+          <th>ID Persona</th>
+          <th>Nombre</th>
+          <th>DNI</th>
+          <th>Apellido 1</th>
+          <th>Apellido 2</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Los datos se insertarán aquí -->
+      </tbody>
+    </table>
+
+    <form id="formPersona">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" required><br><br>
+
+      <label for="dni">DNI:</label>
+      <input type="text" id="dni" required><br><br>
+
+      <label for="apellido1">Apellido 1:</label>
+      <input type="text" id="apellido1" required><br><br>
+
+      <label for="apellido2">Apellido 2:</label>
+      <input type="text" id="apellido2" required><br><br>
+
+      <button type="submit">Insertar Persona</button>
+    </form>
+  </div>
+
+  
+
+  <script>
+    document.getElementById('formPersona').addEventListener('submit', function (e) {
+      e.preventDefault(); // Evitar que el formulario se envíe de forma tradicional
+  
+      // Obtener los valores del formulario
+      const nombre = document.getElementById('nombre').value;
+      const DNI = document.getElementById('dni').value;
+      const apellidoUno = document.getElementById('apellido1').value;
+      const apellidoDos = document.getElementById('apellido2').value;
+  
+      // Crear el objeto con los datos
+      const data = {
+        nombre,
+        DNI,
+        apellidoUno,
+        apellidoDos
+      };
+  
+      // Enviar la solicitud POST al servidor
+      fetch('/insertPersona', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data) // Enviar los datos como JSON
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          alert(data.message);
+          console.log('ID de la persona insertada:', data.id_persona);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Ocurrió un error al insertar la persona.');
+        });
+    });
+  </script>
+  
+
+  <script>
+    // Función para obtener los datos desde el servidor
+    fetch('/datosPersona')
+      .then(response => response.json())
+      .then(data => {
+        const tablaBody = document.querySelector("#tablaPersona tbody");
+        data.datos.forEach(fila => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${fila.id_persona}</td>
+            <td>${fila.nombre}</td>
+            <td>${fila.DNI}</td>
+            <td>${fila.apellidoUno}</td>
+            <td>${fila.apellidoDos}</td>
+
+          `;
+          tablaBody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error("Error al obtener los datos:", error);
+      });
+
+    fetch('/datosProfesor')
+      .then(response => response.json())
+      .then(data => {
+        const tablaBody = document.querySelector("#tablaProfesor tbody");
+        data.datos.forEach(fila => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${fila.id_persona}</td>
+            <td>${fila.nombre}</td>
+            <td>${fila.DNI}</td>
+            <td>${fila.apellidoUno}</td>
+            <td>${fila.apellidoDos}</td>
+            <td>${fila.telefono}</td>
+            <td>${fila.especialidad}</td>
+            <td>${fila.anhos_experiencia}</td>
+          `;
+          tablaBody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error("Error al obtener los datos:", error);
+      });
+
+    fetch('/evalua')
+      .then(response => response.json())
+      .then(data => {
+        const tablaBody = document.querySelector("#tablaEvalua tbody");
+        data.datos.forEach(fila => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${fila.id_profesor}</td>
+            <td>${fila.id_estudiante}</td>
+            <td>${fila.tipo}</td>
+            <td>${fila.nota}</td>
+            <td>${fila.fecha_evaluacion}</td>
+          `;
+          tablaBody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error("Error al obtener los datos:", error);
+      });
+
+    fetch('/asiste')
+      .then(response => response.json())
+      .then(data => {
+        const tablaBody = document.querySelector("#tablaAsiste tbody");
+        data.datos.forEach(fila => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${fila.id_persona}</td>
+            <td>${fila.DNI}</td>
+            <td>${fila.cod_clase}</td>
+            <td>${fila.instrumento}</td>
+          `;
+          tablaBody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error("Error al obtener los datos:", error);
+      });
+
+    fetch('/clase')
+      .then(response => response.json())
+      .then(data => {
+        const tablaBody = document.querySelector("#tablaClase tbody");
+        data.datos.forEach(fila => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${fila.cod_clase}</td>
+            <td>${fila.fecha_clase}</td>
+            <td>${fila.hora_clase}</td>
+            <td>${fila.instrumento}</td>
+            <td>${fila.id_persona}</td>
+          `;
+          tablaBody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error("Error al obtener los datos:", error);
+      });
+  </script>
+
+
+  <script>
+    const btnEstudiante = document.getElementById('btnEstudiante');
+    const btnProfesor = document.getElementById('btnProfesor');
+    const btnEvalua = document.getElementById('btnEvalua');
+    const btnClase = document.getElementById('btnClase');
+    const btnAsiste = document.getElementById('btnAsiste');
+    const btnPersona = document.getElementById('btnPersona');
+
+    // Seleccionamos las secciones para mostrar u ocultar
+    const estudianteDiv = document.getElementById('estudiante');
+    const profesorDiv = document.getElementById('profesor');
+    const evaluaDiv = document.getElementById('evalua');
+    const claseDiv = document.getElementById('clase');
+    const asisteDiv = document.getElementById('asiste');
+
+    // Función para ocultar todas las secciones
+    function hideAllSections() {
+      estudianteDiv.style.display = 'none';
+      profesorDiv.style.display = 'none';
+      evaluaDiv.style.display = 'none';
+      claseDiv.style.display = 'none';
+      asisteDiv.style.display = 'none';
+    }
+
+    // Función para mostrar la sección correspondiente
+    function showSection(section) {
+      hideAllSections();  // Ocultamos todas las secciones primero
+      section.style.display = 'block';  // Mostramos la sección seleccionada
+    }
+
+    // Eventos de los botones
+    btnEstudiante.addEventListener('click', () => {
+      showSection(estudianteDiv);  // Muestra la sección de Estudiantes
+    });
+
+    btnProfesor.addEventListener('click', () => {
+      showSection(profesorDiv);  // Muestra la sección de Profesores
+    });
+
+    btnEvalua.addEventListener('click', () => {
+      showSection(evaluaDiv);  // Muestra la sección de Evaluaciones
+    });
+
+    btnClase.addEventListener('click', () => {
+      showSection(claseDiv);  // Muestra la sección de Clases
+    });
+
+    btnAsiste.addEventListener('click', () => {
+      showSection(asisteDiv);  // Muestra la sección de Asistencias
+    });
+  </script>
+</body>
+
+</html>
