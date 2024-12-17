@@ -48,7 +48,7 @@ app.get('/datosEstudiante', (req, res) => {
 });
 
 app.get('/datosProfesor', (req, res) => {
-  db.all('SELECT p.*, from Profesor p;', [], (err, rows) => {
+  db.all('SELECT * from Profesor;', [], (err, rows) => {
     if (err) {
       res.status(500).json({ error: err.message });
       return;
@@ -78,7 +78,7 @@ app.get('/asiste', (req, res) => {
 });
 
 app.get('/clase', (req, res) => {
-  db.all('SELECT c.* FROM Clase; ', [], (err, rows) => {
+  db.all('SELECT c.* FROM Clase c; ', [], (err, rows) => {
     if (err) {
       res.status(500).json({ error: err.message });
       return;
@@ -86,6 +86,30 @@ app.get('/clase', (req, res) => {
     res.json({ datos: rows }); // Enviar los resultados como JSON
   });
 });
+
+app.get('/telefono', (req, res) => {
+  db.all('SELECT c.* FROM Telefono c; ', [], (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.json({ datos: rows }); // Enviar los resultados como JSON
+  });
+});
+
+app.get('/imparte', (req, res) => {
+  db.all('SELECT c.* FROM Imparte c; ', [], (err, rows) => {
+    if (err) {
+      res.status(500).json({ error: err.message });
+      return;
+    }
+    res.json({ datos: rows }); // Enviar los resultados como JSON
+  });
+});
+
+
+
+
 
 app.post('/insertPersona', (req, res) => {
   // Obtenemos los datos de la solicitud (del cuerpo de la solicitud)

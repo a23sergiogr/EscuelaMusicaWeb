@@ -27,6 +27,8 @@
   <button id="btnEvalua">Evalua</button>
   <button id="btnClase">Clase</button>
   <button id="btnAsiste">Asiste</button>
+  <button id="btnTelefono">Telefono</button>
+  <button id="btnImparte">Imparte</button>
 
   <div id="persona">
     <h1>Datos de la tabla Persona</h1>
@@ -62,18 +64,138 @@
     </form>
   </div>
 
-  
+  <div id="estudiante">
+    <h1>Datos de la tabla Estudiante</h1>
+    <table id="tablaEstudiante">
+      <thead>
+        <tr>
+          <th>ID Estudiante</th>
+          <th>Fecha de Nacimiento</th>
+          <th>Dirección</th>
+          <th>Numero de matricula</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Los datos se insertarán aquí -->
+      </tbody>
+    </table>
+
+  </div>
+
+  <div id="profesor">
+    <h1>Datos de la tabla Profesor</h1>
+    <table id="tablaProfesor">
+      <thead>
+        <tr>
+          <th>ID Profesor</th>
+          <th>Especialidad</th>
+          <th>Años de experiencia</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Los datos se insertarán aquí -->
+      </tbody>
+    </table>
+
+  </div>
+
+  <div id="evalua">
+    <h1>Datos de la tabla Evalua</h1>
+    <table id="tablaEvalua">
+      <thead>
+        <tr>
+          <th>ID Profesor</th>
+          <th>ID Estudiante</th>
+          <th>Tipo</th>
+          <th>Nota</th>
+          <th>Fecha de Evaluacion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Los datos se insertarán aquí -->
+      </tbody>
+    </table>
+
+  </div>
+
+  <div id="asiste">
+    <h1>Datos de la tabla Asiste</h1>
+    <table id="tablaAsiste">
+      <thead>
+        <tr>
+          <th>ID Estudiante</th>
+          <th>Codigo de clase</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Los datos se insertarán aquí -->
+      </tbody>
+    </table>
+
+  </div>
+
+  <div id="clase">
+    <h1>Datos de la tabla Clase</h1>
+    <table id="tablaClase">
+      <thead>
+        <tr>
+          <th>Codigo de clase</th>
+          <th>Fecha de clase</th>
+          <th>Hora de clase</th>
+          <th>Instrumento de clase</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Los datos se insertarán aquí -->
+      </tbody>
+    </table>
+
+  </div>
+
+  <div id="telefono">
+    <h1>Datos de la tabla Telefono</h1>
+    <table id="tablaTelefono">
+      <thead>
+        <tr>
+          <th>ID Persona</th>
+          <th>Telefono</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Los datos se insertarán aquí -->
+      </tbody>
+    </table>
+
+  </div>
+
+  <div id="imparte">
+    <h1>Datos de la tabla Imparte</h1>
+    <table id="tablaImparte">
+      <thead>
+        <tr>
+          <th>ID Profesor</th>
+          <th>Codigo de clase</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Los datos se insertarán aquí -->
+      </tbody>
+    </table>
+
+  </div>
+
+
 
   <script>
     document.getElementById('formPersona').addEventListener('submit', function (e) {
       e.preventDefault(); // Evitar que el formulario se envíe de forma tradicional
-  
+
       // Obtener los valores del formulario
       const nombre = document.getElementById('nombre').value;
       const DNI = document.getElementById('dni').value;
       const apellidoUno = document.getElementById('apellido1').value;
       const apellidoDos = document.getElementById('apellido2').value;
-  
+
       // Crear el objeto con los datos
       const data = {
         nombre,
@@ -81,7 +203,7 @@
         apellidoUno,
         apellidoDos
       };
-  
+
       // Enviar la solicitud POST al servidor
       fetch('/insertPersona', {
         method: 'POST',
@@ -106,7 +228,7 @@
         });
     });
   </script>
-  
+
 
   <script>
     // Función para obtener los datos desde el servidor
@@ -131,6 +253,25 @@
         console.error("Error al obtener los datos:", error);
       });
 
+    fetch('/datosEstudiante')
+      .then(response => response.json())
+      .then(data => {
+        const tablaBody = document.querySelector("#tablaEstudiante tbody");
+        data.datos.forEach(fila => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${fila.id_persona}</td>
+            <td>${fila.fecha_nac}</td>
+            <td>${fila.direccion}</td>
+            <td>${fila.num_matricula}</td>
+          `;
+          tablaBody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error("Error al obtener los datos:", error);
+      });
+
     fetch('/datosProfesor')
       .then(response => response.json())
       .then(data => {
@@ -139,11 +280,6 @@
           const row = document.createElement("tr");
           row.innerHTML = `
             <td>${fila.id_persona}</td>
-            <td>${fila.nombre}</td>
-            <td>${fila.DNI}</td>
-            <td>${fila.apellidoUno}</td>
-            <td>${fila.apellidoDos}</td>
-            <td>${fila.telefono}</td>
             <td>${fila.especialidad}</td>
             <td>${fila.anhos_experiencia}</td>
           `;
@@ -154,7 +290,7 @@
         console.error("Error al obtener los datos:", error);
       });
 
-    fetch('/evalua')
+      fetch('/evalua')
       .then(response => response.json())
       .then(data => {
         const tablaBody = document.querySelector("#tablaEvalua tbody");
@@ -174,7 +310,7 @@
         console.error("Error al obtener los datos:", error);
       });
 
-    fetch('/asiste')
+      fetch('/asiste')
       .then(response => response.json())
       .then(data => {
         const tablaBody = document.querySelector("#tablaAsiste tbody");
@@ -182,9 +318,7 @@
           const row = document.createElement("tr");
           row.innerHTML = `
             <td>${fila.id_persona}</td>
-            <td>${fila.DNI}</td>
             <td>${fila.cod_clase}</td>
-            <td>${fila.instrumento}</td>
           `;
           tablaBody.appendChild(row);
         });
@@ -193,7 +327,7 @@
         console.error("Error al obtener los datos:", error);
       });
 
-    fetch('/clase')
+      fetch('/clase')
       .then(response => response.json())
       .then(data => {
         const tablaBody = document.querySelector("#tablaClase tbody");
@@ -204,7 +338,6 @@
             <td>${fila.fecha_clase}</td>
             <td>${fila.hora_clase}</td>
             <td>${fila.instrumento}</td>
-            <td>${fila.id_persona}</td>
           `;
           tablaBody.appendChild(row);
         });
@@ -212,6 +345,44 @@
       .catch(error => {
         console.error("Error al obtener los datos:", error);
       });
+
+      fetch('/telefono')
+      .then(response => response.json())
+      .then(data => {
+        const tablaBody = document.querySelector("#tablaTelefono tbody");
+        data.datos.forEach(fila => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${fila.id_persona}</td>
+            <td>${fila.telefono}</td>
+          `;
+          tablaBody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error("Error al obtener los datos:", error);
+      });
+
+      fetch('/imparte')
+      .then(response => response.json())
+      .then(data => {
+        const tablaBody = document.querySelector("#tablaImparte tbody");
+        data.datos.forEach(fila => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td>${fila.id_persona}</td>
+            <td>${fila.cod_clase}</td>
+          `;
+          tablaBody.appendChild(row);
+        });
+      })
+      .catch(error => {
+        console.error("Error al obtener los datos:", error);
+      });
+
+    
+
+
   </script>
 
 
