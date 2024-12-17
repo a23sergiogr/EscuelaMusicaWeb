@@ -5,7 +5,7 @@ const port = 8800;
 
 app.use(express.json());
 // Ruta de la base de datos SQLite
-const dbPath = 'C:/Users/a23xacobobc/Desktop/EscuelaMusica'; // Cambia la ruta de acuerdo a tu sistema
+const dbPath = 'BBDD/EscuelaMusicaDos.db'; // Cambia la ruta de acuerdo a tu sistema
 console.log('Intentando conectar con la base de datos en:', dbPath);
 
 // Conexión a la base de datos SQLite
