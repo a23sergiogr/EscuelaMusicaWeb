@@ -130,6 +130,106 @@ app.post('/insertPersona', (req, res) => {
     }
   });
 });
+
+app.post('/insertEstudiante', (req, res) => {
+  // Obtenemos los datos de la solicitud (del cuerpo de la solicitud)
+  const { id_persona, fecha_nac, direccion } = req.body;
+
+  // Realizamos el INSERT en la tabla Persona
+  const sql = "INSERT INTO Estudiante (id_persona, fecha_nac, direccion) VALUES (?, ?, ?)";
+
+  db.run(sql, [id_persona, fecha_nac, direccion], function (err) {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      // Responder con el ID de la persona insertada
+      res.status(200).json({
+        message: 'Estudiante insertada correctamente',
+        id_persona: this.lastID, // Devuelve el id autoincremental de la persona insertada
+      });
+    }
+  });
+});
+
+app.post('/insertProfesor', (req, res) => {
+  // Obtenemos los datos de la solicitud (del cuerpo de la solicitud)
+  const { id_persona, especialidad, anhos_experiencia } = req.body;
+
+  // Realizamos el INSERT en la tabla Persona
+  const sql = "INSERT INTO Profesor (id_persona, especialidad, anhos_experiencia) VALUES (?, ?, ?)";
+
+  db.run(sql, [id_persona, especialidad, anhos_experiencia], function (err) {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      // Responder con el ID de la persona insertada
+      res.status(200).json({
+        message: 'Estudiante insertada correctamente',
+        id_persona: this.lastID, // Devuelve el id autoincremental de la persona insertada
+      });
+    }
+  });
+});
+
+app.post('/insertAsiste', (req, res) => {
+  // Obtenemos los datos de la solicitud (del cuerpo de la solicitud)
+  const { id_estudiante, cod_clase } = req.body;
+
+  // Realizamos el INSERT en la tabla Persona
+  const sql = "INSERT INTO Asiste (id_persona, cod_clase) VALUES (?, ?)";
+
+  db.run(sql, [id_estudiante, cod_clase], function (err) {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      // Responder con el ID de la persona insertada
+      res.status(200).json({
+        message: 'Estudiante insertada correctamente',
+        id_persona: this.lastID, // Devuelve el id autoincremental de la persona insertada
+      });
+    }
+  });
+});
+
+app.post('/insertTelefono', (req, res) => {
+  // Obtenemos los datos de la solicitud (del cuerpo de la solicitud)
+  const { id_persona, telefono } = req.body;
+
+  // Realizamos el INSERT en la tabla Persona
+  const sql = "INSERT INTO Telefono (id_persona, telefono) VALUES (?, ?)";
+
+  db.run(sql, [id_persona, telefono], function (err) {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      // Responder con el ID de la persona insertada
+      res.status(200).json({
+        message: 'Telefono insertada correctamente',
+        id_persona: this.lastID, // Devuelve el id autoincremental de la persona insertada
+      });
+    }
+  });
+});
+
+app.post('/insertImparte', (req, res) => {
+  // Obtenemos los datos de la solicitud (del cuerpo de la solicitud)
+  const { id_estudiante, cod_clase } = req.body;
+
+  // Realizamos el INSERT en la tabla Persona
+  const sql = "INSERT INTO Imparte (id_persona, cod_clase) VALUES (?, ?)";
+
+  db.run(sql, [id_estudiante, cod_clase], function (err) {
+    if (err) {
+      res.status(500).json({ error: err.message });
+    } else {
+      // Responder con el ID de la persona insertada
+      res.status(200).json({
+        message: 'Profesor insertada correctamente',
+        id_persona: this.lastID, // Devuelve el id autoincremental de la persona insertada
+      });
+    }
+  });
+});
 //}
 // Endpoint para obtener los datos de la tabla 'Persona'
 

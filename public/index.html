@@ -30,7 +30,7 @@
   <button id="btnTelefono">Telefono</button>
   <button id="btnImparte">Imparte</button>
 
-  <div id="persona">
+  <div id="persona" style="display: none;">
     <h1>Datos de la tabla Persona</h1>
     <table id="tablaPersona">
       <thead>
@@ -64,7 +64,7 @@
     </form>
   </div>
 
-  <div id="estudiante">
+  <div id="estudiante" style="display: none;">
     <h1>Datos de la tabla Estudiante</h1>
     <table id="tablaEstudiante">
       <thead>
@@ -80,9 +80,22 @@
       </tbody>
     </table>
 
+    <form id="formEstudiante">
+      <label for="Estudiante_id_estudiante">ID Estudiante:</label>
+      <input type="text" id="Estudiante_id_estudiante" required><br><br>
+
+      <label for="Estudiante_fecha_nac">Fecha de Nacimiento:</label>
+      <input type="text" id="Estudiante_fecha_nac" required><br><br>
+
+      <label for="Estudiante_direccion">Dirección:</label>
+      <input type="text" id="Estudiante_direccion" required><br><br>
+
+
+      <button type="submit">Insertar Estudiante</button>
+    </form>
   </div>
 
-  <div id="profesor">
+  <div id="profesor" style="display: none;">
     <h1>Datos de la tabla Profesor</h1>
     <table id="tablaProfesor">
       <thead>
@@ -96,10 +109,22 @@
         <!-- Los datos se insertarán aquí -->
       </tbody>
     </table>
+    <form id="formProfesor">
+      <label for="Profesor_id_profesor">ID Profesor:</label>
+      <input type="text" id="Profesor_id_profesor" required><br><br>
 
+      <label for="especialidad">Especialidad:</label>
+      <input type="text" id="especialidad" required><br><br>
+
+      <label for="experiencia">Años de experiencia:</label>
+      <input type="number" id="experiencia" required><br><br>
+
+
+      <button type="submit">Insertar Profesor</button>
+    </form>
   </div>
 
-  <div id="evalua">
+  <div id="evalua" style="display: none;">
     <h1>Datos de la tabla Evalua</h1>
     <table id="tablaEvalua">
       <thead>
@@ -116,9 +141,28 @@
       </tbody>
     </table>
 
+    <form id="formEvalua">
+      <label for="Evalua_id_profesor">ID Profesor:</label>
+      <input type="text" id="Profesor_id_profesor" required><br><br>
+
+      <label for="Evalua_id_estudiante">ID Estudiante:</label>
+      <input type="text" id="Profesor_id_profesor" required><br><br>
+
+      <label for="tipo">Tipo:</label>
+      <input type="text" id="tipo" required><br><br>
+
+      <label for="nota">Nota:</label>
+      <input type="number" id="nota" required><br><br>
+
+      <label for="fecha_evaluacion">Fecha de Evaluacion:</label>
+      <input type="number" id="fecha_evaluacion" required><br><br>
+
+
+      <button type="submit">Insertar Evaluación</button>
+    </form>
   </div>
 
-  <div id="asiste">
+  <div id="asiste" style="display: none;">
     <h1>Datos de la tabla Asiste</h1>
     <table id="tablaAsiste">
       <thead>
@@ -130,11 +174,21 @@
       <tbody>
         <!-- Los datos se insertarán aquí -->
       </tbody>
-    </table>
 
+
+    </table>
+    <form id="formAsiste">
+      <label for="Asiste_id_estudiante">ID Estudiante:</label>
+      <input type="number" id="Asiste_id_estudiante" required><br><br>
+
+      <label for="Asiste_cod_clase">Codigo clase:</label>
+      <input type="number" id="Asiste_cod_clase" required><br><br>
+
+      <button type="submit">Insertar Asiste</button>
+    </form>
   </div>
 
-  <div id="clase">
+  <div id="clase" style="display: none;">
     <h1>Datos de la tabla Clase</h1>
     <table id="tablaClase">
       <thead>
@@ -165,7 +219,15 @@
         <!-- Los datos se insertarán aquí -->
       </tbody>
     </table>
+    <form id="formTelefono">
+      <label for="Telefono_id">ID Persona:</label>
+      <input type="number" id="Telefono_id" required><br><br>
 
+      <label for="telefono">Telefono:</label>
+      <input type="number" id="telefono" required><br><br>
+
+      <button type="submit">Insertar Telefono</button>
+    </form>
   </div>
 
   <div id="imparte">
@@ -181,7 +243,15 @@
         <!-- Los datos se insertarán aquí -->
       </tbody>
     </table>
+    <form id="formImparte">
+      <label for="Imparte_id_profesor">ID Profesor:</label>
+      <input type="number" id="Imparte_id_profesor" required><br><br>
 
+      <label for="Imparte_cod_clase">Codigo clase:</label>
+      <input type="number" id="Imparte_cod_clase" required><br><br>
+
+      <button type="submit">Insertar Imparte</button>
+    </form>
   </div>
 
 
@@ -203,6 +273,8 @@
         apellidoUno,
         apellidoDos
       };
+
+      alert("hola")
 
       // Enviar la solicitud POST al servidor
       fetch('/insertPersona', {
@@ -227,6 +299,196 @@
           alert('Ocurrió un error al insertar la persona.');
         });
     });
+
+    document.getElementById('formEstudiante').addEventListener('submit', function (e) {
+      e.preventDefault(); // Evitar que el formulario se envíe de forma tradicional
+
+      // Obtener los valores del formulario
+      const id_estudiante = document.getElementById('Estudiante_id_estudiante').value;
+      const fecha_nac = document.getElementById('Estudiante_fecha_nac').value;
+      const direccion = document.getElementById('Estudiante_direccion').value;
+
+      // Crear el objeto con los datos
+      const data = {
+        id_estudiante,
+        fecha_nac,
+        direccion
+      };
+
+      // Enviar la solicitud POST al servidor
+      fetch('/insertEstudiante', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data) // Enviar los datos como JSON
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          alert(data.message);
+          console.log('ID del estudiante insertada:', data.id_estudiante);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Ocurrió un error al insertar la persona.');
+        });
+    });
+
+    document.getElementById('formProfesor').addEventListener('submit', function (e) {
+      e.preventDefault(); // Evitar que el formulario se envíe de forma tradicional
+
+      // Obtener los valores del formulario
+      const id_profesor = document.getElementById('Profesor_id_profesor').value;
+      const especialidad = document.getElementById('especialidad').value;
+      const experiencia = document.getElementById('experiencia').value;
+
+      // Crear el objeto con los datos
+      const data = {
+        id_profesor,
+        especialidad,
+        experiencia
+      };
+
+      // Enviar la solicitud POST al servidor
+      fetch('/insertProfesor', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data) // Enviar los datos como JSON
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          alert(data.message);
+          console.log('ID del profesor insertada:', data.id_profesor);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Ocurrió un error al insertar la persona.');
+        });
+    });
+
+    document.getElementById('formAsiste').addEventListener('submit', function (e) {
+      e.preventDefault(); // Evitar que el formulario se envíe de forma tradicional
+
+      // Obtener los valores del formulario
+      const id_estudiante = document.getElementById('Asiste_id_estudiante').value;
+      const cod_clase = document.getElementById('Asiste_cod_clase').value;
+
+      // Crear el objeto con los datos
+      const data = {
+        id_estudiante,
+        cod_clase
+      };
+
+      // Enviar la solicitud POST al servidor
+      fetch('/insertAsiste', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data) // Enviar los datos como JSON
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          alert(data.message);
+          console.log('ID del estudiante insertada:', data.id_estudiante);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Ocurrió un error al insertar.');
+        });
+    });
+
+    document.getElementById('formTelefono').addEventListener('submit', function (e) {
+      e.preventDefault(); // Evitar que el formulario se envíe de forma tradicional
+
+      // Obtener los valores del formulario
+      const Telefono_id = document.getElementById('Telefono_id').value;
+      const telefono = document.getElementById('telefono').value;
+
+      // Crear el objeto con los datos
+      const data = {
+        Telefono_id,
+        telefono
+      };
+
+      // Enviar la solicitud POST al servidor
+      fetch('/insertTelefono', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data) // Enviar los datos como JSON
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          alert(data.message);
+          console.log('ID del estudiante insertada:', data.telefono);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Ocurrió un error al insertar.');
+        });
+    });
+
+    document.getElementById('formImparte').addEventListener('submit', function (e) {
+      e.preventDefault(); // Evitar que el formulario se envíe de forma tradicional
+
+      // Obtener los valores del formulario
+      const id_estudiante = document.getElementById('Imparte_id_profesor').value;
+      const cod_clase = document.getElementById('Imparte_cod_clase').value;
+
+      // Crear el objeto con los datos
+      const data = {
+        id_estudiante,
+        cod_clase
+      };
+
+      // Enviar la solicitud POST al servidor
+      fetch('/insertImparte', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data) // Enviar los datos como JSON
+      })
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then(data => {
+          alert(data.message);
+          console.log('ID del estudiante insertada:', data.id_estudiante);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+          alert('Ocurrió un error al insertar.');
+        });
+    });
+
   </script>
 
 
@@ -290,7 +552,7 @@
         console.error("Error al obtener los datos:", error);
       });
 
-      fetch('/evalua')
+    fetch('/evalua')
       .then(response => response.json())
       .then(data => {
         const tablaBody = document.querySelector("#tablaEvalua tbody");
@@ -310,7 +572,7 @@
         console.error("Error al obtener los datos:", error);
       });
 
-      fetch('/asiste')
+    fetch('/asiste')
       .then(response => response.json())
       .then(data => {
         const tablaBody = document.querySelector("#tablaAsiste tbody");
@@ -327,7 +589,7 @@
         console.error("Error al obtener los datos:", error);
       });
 
-      fetch('/clase')
+    fetch('/clase')
       .then(response => response.json())
       .then(data => {
         const tablaBody = document.querySelector("#tablaClase tbody");
@@ -346,7 +608,7 @@
         console.error("Error al obtener los datos:", error);
       });
 
-      fetch('/telefono')
+    fetch('/telefono')
       .then(response => response.json())
       .then(data => {
         const tablaBody = document.querySelector("#tablaTelefono tbody");
@@ -363,7 +625,7 @@
         console.error("Error al obtener los datos:", error);
       });
 
-      fetch('/imparte')
+    fetch('/imparte')
       .then(response => response.json())
       .then(data => {
         const tablaBody = document.querySelector("#tablaImparte tbody");
@@ -380,7 +642,7 @@
         console.error("Error al obtener los datos:", error);
       });
 
-    
+
 
 
   </script>
