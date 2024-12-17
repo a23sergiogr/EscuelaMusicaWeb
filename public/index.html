@@ -1,262 +1,344 @@
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Datos desde SQLite</title>
-  <style>
-    table {
-      width: 100%;
-      border-collapse: collapse;
-    }
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Datos desde SQLite</title>
+    <style>
+/* Estilos generales */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f5f5f5;
+  margin: 0;
+  padding: 20px;
+  color: #333;
+}
 
-    th,
-    td {
-      padding: 8px;
-      text-align: left;
-      border: 1px solid #ddd;
-    }
+/* Botones */
+button {
+  background-color: #b3a1e0;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  margin: 5px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover {
+  background-color: #9a89c8;
+}
+
+/* Tablas */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table th, table td {
+  border: 1px solid #b3a1e0;
+  text-align: left;
+  padding: 10px;
+}
+
+table th {
+  background-color: #b3a1e0;
+  color: white;
+}
+
+table tbody tr:nth-child(odd) {
+  background-color: #f5f5f5;
+}
+
+table tbody tr:nth-child(even) {
+  background-color: #eaeaea;
+}
+
+/* Formularios */
+form {
+  margin-top: 20px;
+  padding: 15px;
+  background-color: white;
+  border: 1px solid #b3a1e0;
+  border-radius: 5px;
+}
+
+form label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #b3a1e0;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+form button {
+  background-color: #b3a1e0;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+form button:hover {
+  background-color: #9a89c8;
+}
+
+/* Secciones */
+h1 {
+  color: #4a4a4a;
+  margin-bottom: 20px;
+}
+
+div {
+  margin-bottom: 40px;
+}
   </style>
-</head>
+  </head>
 
-<body>
-  <button id="btnPersona">Persona</button>
-  <button id="btnEstudiante">Estudiante</button>
-  <button id="btnProfesor">Profesor</button>
-  <button id="btnEvalua">Evalua</button>
-  <button id="btnClase">Clase</button>
-  <button id="btnAsiste">Asiste</button>
-  <button id="btnTelefono">Telefono</button>
-  <button id="btnImparte">Imparte</button>
+  <body>
+    <button id="btnPersona">Persona</button>
+    <button id="btnEstudiante">Estudiante</button>
+    <button id="btnProfesor">Profesor</button>
+    <button id="btnEvalua">Evalua</button>
+    <button id="btnClase">Clase</button>
+    <button id="btnAsiste">Asiste</button>
+    <button id="btnTelefono">Telefono</button>
+    <button id="btnImparte">Imparte</button>
 
-  <div id="persona" style="display: none;">
-    <h1>Datos de la tabla Persona</h1>
-    <table id="tablaPersona">
-      <thead>
-        <tr>
-          <th>ID Persona</th>
-          <th>Nombre</th>
-          <th>DNI</th>
-          <th>Apellido 1</th>
-          <th>Apellido 2</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Los datos se insertarán aquí -->
-      </tbody>
-    </table>
+    <!-- Sección Persona -->
+    <div id="persona" style="display: none;">
+      <h1>Datos de la tabla Persona</h1>
+      <table id="tablaPersona">
+        <thead>
+          <tr>
+            <th>ID Persona</th>
+            <th>Nombre</th>
+            <th>DNI</th>
+            <th>Apellido 1</th>
+            <th>Apellido 2</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Los datos se insertarán aquí -->
+        </tbody>
+      </table>
+      <form id="formPersona">
+        <label for="nombre">Nombre:</label>
+        <input type="text" id="nombre" required><br><br>
+        <label for="dni">DNI:</label>
+        <input type="text" id="dni" required><br><br>
+        <label for="apellido1">Apellido 1:</label>
+        <input type="text" id="apellido1" required><br><br>
+        <label for="apellido2">Apellido 2:</label>
+        <input type="text" id="apellido2" required><br><br>
+        <button type="submit">Insertar Persona</button>
+      </form>
+    </div>
 
-    <form id="formPersona">
-      <label for="nombre">Nombre:</label>
-      <input type="text" id="nombre" required><br><br>
+    <!-- Sección Estudiante -->
+    <div id="estudiante" style="display: none;">
+      <h1>Datos de la tabla Estudiante</h1>
+      <table id="tablaEstudiante">
+        <thead>
+          <tr>
+            <th>ID Estudiante</th>
+            <th>Fecha de Nacimiento</th>
+            <th>Dirección</th>
+            <th>Numero de matrícula</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Los datos se insertarán aquí -->
+        </tbody>
+      </table>
+      <form id="formEstudiante">
+        <label for="Estudiante_id_estudiante">ID Estudiante:</label>
+        <input type="text" id="Estudiante_id_estudiante" required><br><br>
+        <label for="Estudiante_fecha_nac">Fecha de Nacimiento:</label>
+        <input type="text" id="Estudiante_fecha_nac" required><br><br>
+        <label for="Estudiante_direccion">Dirección:</label>
+        <input type="text" id="Estudiante_direccion" required><br><br>
+        <button type="submit">Insertar Estudiante</button>
+      </form>
+    </div>
 
-      <label for="dni">DNI:</label>
-      <input type="text" id="dni" required><br><br>
+    <!-- Sección Profesor -->
+    <div id="profesor" style="display: none;">
+      <h1>Datos de la tabla Profesor</h1>
+      <table id="tablaProfesor">
+        <thead>
+          <tr>
+            <th>ID Profesor</th>
+            <th>Especialidad</th>
+            <th>Años de experiencia</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Los datos se insertarán aquí -->
+        </tbody>
+      </table>
+      <form id="formProfesor">
+        <label for="Profesor_id_profesor">ID Profesor:</label>
+        <input type="text" id="Profesor_id_profesor" required><br><br>
+        <label for="especialidad">Especialidad:</label>
+        <input type="text" id="especialidad" required><br><br>
+        <label for="experiencia">Años de experiencia:</label>
+        <input type="number" id="experiencia" required><br><br>
+        <button type="submit">Insertar Profesor</button>
+      </form>
+    </div>
 
-      <label for="apellido1">Apellido 1:</label>
-      <input type="text" id="apellido1" required><br><br>
+    <!-- Sección Evalua -->
+    <div id="evalua" style="display: none;">
+      <h1>Datos de la tabla Evalua</h1>
+      <table id="tablaEvalua">
+        <thead>
+          <tr>
+            <th>ID Profesor</th>
+            <th>ID Estudiante</th>
+            <th>Tipo</th>
+            <th>Nota</th>
+            <th>Fecha de Evaluación</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Los datos se insertarán aquí -->
+        </tbody>
+      </table>
+      <form id="formEvalua">
+        <label for="Evalua_id_profesor">ID Profesor:</label>
+        <input type="text" id="Evalua_id_profesor" required><br><br>
+        <label for="Evalua_id_estudiante">ID Estudiante:</label>
+        <input type="text" id="Evalua_id_estudiante" required><br><br>
+        <label for="tipo">Tipo:</label>
+        <input type="text" id="tipo" required><br><br>
+        <label for="nota">Nota:</label>
+        <input type="number" id="nota" required><br><br>
+        <label for="fecha_evaluacion">Fecha de Evaluación:</label>
+        <input type="text" id="fecha_evaluacion" required><br><br>
+        <button type="submit">Insertar Evaluación</button>
+      </form>
+    </div>
 
-      <label for="apellido2">Apellido 2:</label>
-      <input type="text" id="apellido2" required><br><br>
+    <div id="asiste" style="display: none;">
+      <h1>Datos de la tabla Asiste</h1>
+      <table id="tablaAsiste">
+        <thead>
+          <tr>
+            <th>ID Estudiante</th>
+            <th>Codigo de clase</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Los datos se insertarán aquí -->
+        </tbody>
 
-      <button type="submit">Insertar Persona</button>
-    </form>
-  </div>
+      </table>
+      <form id="formAsiste">
+        <label for="Asiste_id_estudiante">ID Estudiante:</label>
+        <input type="number" id="Asiste_id_estudiante" required><br><br>
 
-  <div id="estudiante" style="display: none;">
-    <h1>Datos de la tabla Estudiante</h1>
-    <table id="tablaEstudiante">
-      <thead>
-        <tr>
-          <th>ID Estudiante</th>
-          <th>Fecha de Nacimiento</th>
-          <th>Dirección</th>
-          <th>Numero de matricula</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Los datos se insertarán aquí -->
-      </tbody>
-    </table>
+        <label for="Asiste_cod_clase">Codigo clase:</label>
+        <input type="number" id="Asiste_cod_clase" required><br><br>
 
-    <form id="formEstudiante">
-      <label for="Estudiante_id_estudiante">ID Estudiante:</label>
-      <input type="text" id="Estudiante_id_estudiante" required><br><br>
+        <button type="submit">Insertar Asiste</button>
+      </form>
+    </div>
 
-      <label for="Estudiante_fecha_nac">Fecha de Nacimiento:</label>
-      <input type="text" id="Estudiante_fecha_nac" required><br><br>
+    <div id="clase" style="display: none;">
+      <h1>Datos de la tabla Clase</h1>
+      <table id="tablaClase">
+        <thead>
+          <tr>
+            <th>Codigo de clase</th>
+            <th>Fecha de clase</th>
+            <th>Hora de clase</th>
+            <th>Instrumento de clase</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Los datos se insertarán aquí -->
+        </tbody>
+      </table>
+      <form id="formClase">
+        <label for="Clase_cod_clase">Código de clase:</label>
+        <input type="number" id="Clase_cod_clase" required><br><br>
 
-      <label for="Estudiante_direccion">Dirección:</label>
-      <input type="text" id="Estudiante_direccion" required><br><br>
+        <label for="Clase_fecha_clase">Fecha de clase:</label>
+        <input type="date" id="Clase_fecha_clase" required><br><br>
 
+        <label for="Clase_hora_clase">Hora de clase:</label>
+        <input type="time" id="Clase_hora_clase" required><br><br>
 
-      <button type="submit">Insertar Estudiante</button>
-    </form>
-  </div>
+        <label for="Clase_instrumento_clase">Instrumento de clase:</label>
+        <input type="text" id="Clase_instrumento_clase" required><br><br>
 
-  <div id="profesor" style="display: none;">
-    <h1>Datos de la tabla Profesor</h1>
-    <table id="tablaProfesor">
-      <thead>
-        <tr>
-          <th>ID Profesor</th>
-          <th>Especialidad</th>
-          <th>Años de experiencia</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Los datos se insertarán aquí -->
-      </tbody>
-    </table>
-    <form id="formProfesor">
-      <label for="Profesor_id_profesor">ID Profesor:</label>
-      <input type="text" id="Profesor_id_profesor" required><br><br>
+        <button type="submit">Insertar Clase</button>
+      </form>
+    </div>
 
-      <label for="especialidad">Especialidad:</label>
-      <input type="text" id="especialidad" required><br><br>
+    <div id="telefono" style="display: none;">
+      <h1>Datos de la tabla Telefono</h1>
+      <table id="tablaTelefono">
+        <thead>
+          <tr>
+            <th>ID Persona</th>
+            <th>Telefono</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Los datos se insertarán aquí -->
+        </tbody>
+      </table>
+      <form id="formTelefono">
+        <label for="Telefono_id">ID Persona:</label>
+        <input type="number" id="Telefono_id" required><br><br>
 
-      <label for="experiencia">Años de experiencia:</label>
-      <input type="number" id="experiencia" required><br><br>
+        <label for="telefono">Telefono:</label>
+        <input type="number" id="telefono" required><br><br>
 
+        <button type="submit">Insertar Telefono</button>
+      </form>
+    </div>
 
-      <button type="submit">Insertar Profesor</button>
-    </form>
-  </div>
+    <div id="imparte" style="display: none;">
+      <h1>Datos de la tabla Imparte</h1>
+      <table id="tablaImparte">
+        <thead>
+          <tr>
+            <th>ID Profesor</th>
+            <th>Codigo de clase</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Los datos se insertarán aquí -->
+        </tbody>
+      </table>
+      <form id="formImparte">
+        <label for="Imparte_id_profesor">ID Profesor:</label>
+        <input type="number" id="Imparte_id_profesor" required><br><br>
 
-  <div id="evalua" style="display: none;">
-    <h1>Datos de la tabla Evalua</h1>
-    <table id="tablaEvalua">
-      <thead>
-        <tr>
-          <th>ID Profesor</th>
-          <th>ID Estudiante</th>
-          <th>Tipo</th>
-          <th>Nota</th>
-          <th>Fecha de Evaluacion</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Los datos se insertarán aquí -->
-      </tbody>
-    </table>
+        <label for="Imparte_cod_clase">Codigo clase:</label>
+        <input type="number" id="Imparte_cod_clase" required><br><br>
 
-    <form id="formEvalua">
-      <label for="Evalua_id_profesor">ID Profesor:</label>
-      <input type="text" id="Profesor_id_profesor" required><br><br>
+        <button type="submit">Insertar Imparte</button>
+      </form>
+    </div>
 
-      <label for="Evalua_id_estudiante">ID Estudiante:</label>
-      <input type="text" id="Profesor_id_profesor" required><br><br>
-
-      <label for="tipo">Tipo:</label>
-      <input type="text" id="tipo" required><br><br>
-
-      <label for="nota">Nota:</label>
-      <input type="number" id="nota" required><br><br>
-
-      <label for="fecha_evaluacion">Fecha de Evaluacion:</label>
-      <input type="number" id="fecha_evaluacion" required><br><br>
-
-
-      <button type="submit">Insertar Evaluación</button>
-    </form>
-  </div>
-
-  <div id="asiste" style="display: none;">
-    <h1>Datos de la tabla Asiste</h1>
-    <table id="tablaAsiste">
-      <thead>
-        <tr>
-          <th>ID Estudiante</th>
-          <th>Codigo de clase</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Los datos se insertarán aquí -->
-      </tbody>
-
-
-    </table>
-    <form id="formAsiste">
-      <label for="Asiste_id_estudiante">ID Estudiante:</label>
-      <input type="number" id="Asiste_id_estudiante" required><br><br>
-
-      <label for="Asiste_cod_clase">Codigo clase:</label>
-      <input type="number" id="Asiste_cod_clase" required><br><br>
-
-      <button type="submit">Insertar Asiste</button>
-    </form>
-  </div>
-
-  <div id="clase" style="display: none;">
-    <h1>Datos de la tabla Clase</h1>
-    <table id="tablaClase">
-      <thead>
-        <tr>
-          <th>Codigo de clase</th>
-          <th>Fecha de clase</th>
-          <th>Hora de clase</th>
-          <th>Instrumento de clase</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Los datos se insertarán aquí -->
-      </tbody>
-    </table>
-
-  </div>
-
-  <div id="telefono">
-    <h1>Datos de la tabla Telefono</h1>
-    <table id="tablaTelefono">
-      <thead>
-        <tr>
-          <th>ID Persona</th>
-          <th>Telefono</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Los datos se insertarán aquí -->
-      </tbody>
-    </table>
-    <form id="formTelefono">
-      <label for="Telefono_id">ID Persona:</label>
-      <input type="number" id="Telefono_id" required><br><br>
-
-      <label for="telefono">Telefono:</label>
-      <input type="number" id="telefono" required><br><br>
-
-      <button type="submit">Insertar Telefono</button>
-    </form>
-  </div>
-
-  <div id="imparte">
-    <h1>Datos de la tabla Imparte</h1>
-    <table id="tablaImparte">
-      <thead>
-        <tr>
-          <th>ID Profesor</th>
-          <th>Codigo de clase</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- Los datos se insertarán aquí -->
-      </tbody>
-    </table>
-    <form id="formImparte">
-      <label for="Imparte_id_profesor">ID Profesor:</label>
-      <input type="number" id="Imparte_id_profesor" required><br><br>
-
-      <label for="Imparte_cod_clase">Codigo clase:</label>
-      <input type="number" id="Imparte_cod_clase" required><br><br>
-
-      <button type="submit">Insertar Imparte</button>
-    </form>
-  </div>
-
-
-
-  <script>
+    <script>
     document.getElementById('formPersona').addEventListener('submit', function (e) {
       e.preventDefault(); // Evitar que el formulario se envíe de forma tradicional
 
@@ -491,8 +573,7 @@
 
   </script>
 
-
-  <script>
+    <script>
     // Función para obtener los datos desde el servidor
     fetch('/datosPersona')
       .then(response => response.json())
@@ -647,58 +728,32 @@
 
   </script>
 
+    <script>
+  const botonesYSecciones = {
+    btnPersona: "persona",
+    btnEstudiante: "estudiante",
+    btnProfesor: "profesor",
+    btnEvalua: "evalua",
+    btnClase: "clase",
+    btnAsiste: "asiste",
+    btnTelefono: "telefono",
+    btnImparte: "imparte"
+  };
 
-  <script>
-    const btnEstudiante = document.getElementById('btnEstudiante');
-    const btnProfesor = document.getElementById('btnProfesor');
-    const btnEvalua = document.getElementById('btnEvalua');
-    const btnClase = document.getElementById('btnClase');
-    const btnAsiste = document.getElementById('btnAsiste');
-    const btnPersona = document.getElementById('btnPersona');
-
-    // Seleccionamos las secciones para mostrar u ocultar
-    const estudianteDiv = document.getElementById('estudiante');
-    const profesorDiv = document.getElementById('profesor');
-    const evaluaDiv = document.getElementById('evalua');
-    const claseDiv = document.getElementById('clase');
-    const asisteDiv = document.getElementById('asiste');
-
-    // Función para ocultar todas las secciones
-    function hideAllSections() {
-      estudianteDiv.style.display = 'none';
-      profesorDiv.style.display = 'none';
-      evaluaDiv.style.display = 'none';
-      claseDiv.style.display = 'none';
-      asisteDiv.style.display = 'none';
-    }
-
-    // Función para mostrar la sección correspondiente
-    function showSection(section) {
-      hideAllSections();  // Ocultamos todas las secciones primero
-      section.style.display = 'block';  // Mostramos la sección seleccionada
-    }
-
-    // Eventos de los botones
-    btnEstudiante.addEventListener('click', () => {
-      showSection(estudianteDiv);  // Muestra la sección de Estudiantes
+  function ocultarTodasLasSecciones() {
+    Object.values(botonesYSecciones).forEach(seccionId => {
+      document.getElementById(seccionId).style.display = "none";
     });
+  }
 
-    btnProfesor.addEventListener('click', () => {
-      showSection(profesorDiv);  // Muestra la sección de Profesores
+  Object.entries(botonesYSecciones).forEach(([botonId, seccionId]) => {
+    document.getElementById(botonId).addEventListener("click", () => {
+      ocultarTodasLasSecciones();
+      document.getElementById(seccionId).style.display = "block";
     });
+  });
+</script>
 
-    btnEvalua.addEventListener('click', () => {
-      showSection(evaluaDiv);  // Muestra la sección de Evaluaciones
-    });
-
-    btnClase.addEventListener('click', () => {
-      showSection(claseDiv);  // Muestra la sección de Clases
-    });
-
-    btnAsiste.addEventListener('click', () => {
-      showSection(asisteDiv);  // Muestra la sección de Asistencias
-    });
-  </script>
-</body>
+  </body>
 
 </html>
